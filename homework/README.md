@@ -1,1 +1,3 @@
-#  All things related to data-engineering-zoomcamp
+# data-engineering-zoomcamp
+
+### This is a repo for maintaining weekly homeworks
