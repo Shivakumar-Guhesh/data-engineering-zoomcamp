@@ -3,6 +3,9 @@ import os
 from time import time
 import pandas as pd
 from sqlalchemy import create_engine
+import warnings
+
+warnings.simplefilter(action="ignore", category=FutureWarning)
 
 
 def format_date(df):
