@@ -2,7 +2,7 @@ version: '3'
 services:
   magic:
     image: mageai/mageai:latest
-    command: mage start ${PROJECT_NAME}
+    command: mage start ./mage_files/${PROJECT_NAME}
     env_file:
       - .env
     build:
@@ -19,8 +19,8 @@ services:
     ports:
       - 6789:6789
     volumes:
-      - .:/home/src/
-      - ../../keys:/home/src/keys
+      - ./mage_files:/home/src/mage_files
+      - ../../../keys:/home/src/keys
       # - ~/Documents/secrets/personal-gcp.json:/home/src/personal-gcp.json
     restart: on-failure:5
   postgres:
