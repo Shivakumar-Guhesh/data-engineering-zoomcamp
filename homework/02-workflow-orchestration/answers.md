@@ -53,19 +53,13 @@ Which of the following creates a new column `lpep_pickup_date` by converting `lp
 
 What are the existing values of `VendorID` in the dataset?
 
-* 1, 2, or 3
 * 1 or 2
-* 1, 2, 3, 4
-* 1
 
 ## Question 5. Data Transformation
 
 How many columns need to be renamed to snake case?
 
-* 3
-* 6
 * 2
-* 4
 
 ## Question 6. Data Exporting
 

@@ -38,9 +38,10 @@ def load_data_from_api(*args, **kwargs):
             'trip_type': 'float64',
             'congestion_surcharge': 'float64'
         }
+        parse_dates = ['lpep_pickup_datetime', 'lpep_dropoff_datetime']
         # pd.read_csv(url, sep=",",compression="gzip",dtype=taxi_dtypes,parse_dates=parse_dates)
-        df =  pd.read_csv(url, sep=',', compression='gzip',dtype=taxi_dtypes)
-        # print(df)
+        df =  pd.read_csv(url, sep=',', compression='gzip',dtype=taxi_dtypes,parse_dates = parse_dates)
+        
         data = pd.concat([data, df], ignore_index=True)
     # response = requests.get(url)
 
