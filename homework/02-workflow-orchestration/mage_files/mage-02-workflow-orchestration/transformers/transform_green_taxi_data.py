@@ -39,6 +39,7 @@ def transform(data, *args, **kwargs):
     # print(columns)
     data.columns = new_columns
     print(f'Differences: {list(set(old_columns) - set(new_columns))}')
+    print(data)
     return data
 
 @test
