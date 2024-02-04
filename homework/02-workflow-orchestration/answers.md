@@ -56,7 +56,7 @@ What are the existing values of `VendorID` in the dataset?
 
 How many columns need to be renamed to snake case?
 
-* 2
+* 4
 
 ## Question 6. Data Exporting
 
