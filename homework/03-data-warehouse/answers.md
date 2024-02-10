@@ -29,7 +29,7 @@ How many records have a fare_amount of 0?
 
 ## Question 4:
 What is the best strategy to make an optimized table in Big Query if your query will always order the results by PUlocationID and filter based on lpep_pickup_datetime? (Create a new table with this strategy)
-- Partition by lpep_pickup_datetime and Partition by PUlocationID
+- Partition by lpep_pickup_datetime  Cluster on PUlocationID
 
 
 ## Question 5:
@@ -56,7 +56,7 @@ It is best practice in Big Query to always cluster your data:
 
 ## (Bonus: Not worth points) Question 8:
 No Points: Write a `SELECT count(*)` query FROM the materialized table you created. How many bytes does it estimate will be read? Why?
-- o B
+- 0 B
 
  
 ## Submitting the solutions
