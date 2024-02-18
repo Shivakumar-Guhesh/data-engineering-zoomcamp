@@ -8,6 +8,6 @@
 /homework/01-docker-terraform/terraform_gcp/terraform*
 /homework/01-docker-terraform/terraform_gcp/.terraform.lock.hcl
 homework/01-docker-terraform/docker_sql/ny_taxi_postgres_data/
-.terraform*
-/homework/02-workflow-orchestration/terraform.tfstate
-*.tfstate*
+.terraform
+*.gz
+*.parquet
