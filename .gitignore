@@ -11,3 +11,4 @@ homework/01-docker-terraform/docker_sql/ny_taxi_postgres_data/
 .terraform
 *.gz
 *.parquet
+.terraform
