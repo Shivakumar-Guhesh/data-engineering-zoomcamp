@@ -51,6 +51,7 @@ def web_to_gcs(year, service):
 
         # read it back into a parquet file
         df = pd.read_csv(file_name, compression="gzip")
+        df["passenger_count"] = df["passenger_count"].astype("Int64")
         file_name = file_name.replace(".csv.gz", ".parquet")
         df.to_parquet(file_name, engine="pyarrow")
         print(f"Parquet: {file_name}")
@@ -60,7 +61,7 @@ def web_to_gcs(year, service):
         print(f"GCS: {service}/{file_name}")
 
 
-web_to_gcs("2019", "green")
-web_to_gcs("2020", "green")
+# web_to_gcs("2019", "green")
+# web_to_gcs("2020", "green")
 web_to_gcs("2019", "yellow")
 web_to_gcs("2020", "yellow")
