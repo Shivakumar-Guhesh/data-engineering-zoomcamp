@@ -24,11 +24,12 @@ def upload_to_gcs(bucket, object_name, local_file):
     """
     # # WORKAROUND to prevent timeout for files > 6 MB on 800 kbps upload speed.
     # # (Ref: https://github.com/googleapis/python-storage/issues/74)
-    # storage.blob._MAX_MULTIPART_SIZE = 5 * 1024 * 1024  # 5 MB
-    # storage.blob._DEFAULT_CHUNKSIZE = 5 * 1024 * 1024  # 5 MB
+    storage.blob._MAX_MULTIPART_SIZE = 5 * 1024 * 1024  # 5 MB
+    storage.blob._DEFAULT_CHUNKSIZE = 5 * 1024 * 1024  # 5 MB
 
     client = storage.Client()
     bucket = client.bucket(bucket)
+    print(f"Bucket {bucket}")
     blob = bucket.blob(object_name)
     blob.upload_from_filename(local_file)
 
@@ -51,7 +52,31 @@ def web_to_gcs(year, service):
 
         # read it back into a parquet file
         df = pd.read_csv(file_name, compression="gzip")
-        df["passenger_count"] = df["passenger_count"].astype("Int64")
+
+        if service == "fhv":
+            # df.rename({'dropoff_datetime':'dropOff_datetime'}, axis='columns', inplace=True)
+            # df.rename({'PULocationID':'PUlocationID'}, axis='columns', inplace=True)
+            # df.rename({'DOLocationID':'DOlocationID'}, axis='columns', inplace=True)
+            # df["pickup_datetime"] = pd.to_datetime(df["pickup_datetime"])
+            # df["dropOff_datetime"] = pd.to_datetime(df["dropOff_datetime"])
+            df["PUlocationID"] = df["PUlocationID"].astype("Int64")
+            df["DOlocationID"] = df["DOlocationID"].astype("Int64")
+            df["SR_Flag"] = df["SR_Flag"].astype("Int64")
+        else:
+            df["VendorID"] = df["VendorID"].astype("Int64")
+            df["RatecodeID"] = df["RatecodeID"].astype("Int64")
+            df["PULocationID"] = df["PULocationID"].astype("Int64")
+            df["DOLocationID"] = df["DOLocationID"].astype("Int64")
+            df["passenger_count"] = df["passenger_count"].astype("Int64")
+            df["payment_type"] = df["payment_type"].astype("Int64")
+        # if service == "yellow":
+        #     df["tpep_pickup_datetime"] = pd.to_datetime(df["tpep_pickup_datetime"])
+        #     df["tpep_dropoff_datetime"] = pd.to_datetime(df["tpep_dropoff_datetime"])
+        if service == "green":
+            # df["lpep_pickup_datetime"] = pd.to_datetime(df["lpep_pickup_datetime"])
+            # df["lpep_dropoff_datetime"] = pd.to_datetime(df["lpep_dropoff_datetime"])
+            df["trip_type"] = df["trip_type"].astype("Int64")
+
         file_name = file_name.replace(".csv.gz", ".parquet")
         df.to_parquet(file_name, engine="pyarrow")
         print(f"Parquet: {file_name}")
@@ -61,7 +86,9 @@ def web_to_gcs(year, service):
         print(f"GCS: {service}/{file_name}")
 
 
-# web_to_gcs("2019", "green")
-# web_to_gcs("2020", "green")
+web_to_gcs("2019", "green")
+web_to_gcs("2020", "green")
 web_to_gcs("2019", "yellow")
 web_to_gcs("2020", "yellow")
+web_to_gcs("2019", "fhv")
+# web_to_gcs("2020", "fhv")
